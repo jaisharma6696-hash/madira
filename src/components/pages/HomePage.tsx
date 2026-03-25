@@ -35,6 +35,7 @@ import {
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
 import { InvestmentCalculator } from '../InvestmentCalculator';
 import { cn } from '../ui';
+import { NoiseOverlay } from '../NoiseOverlay';
 
 const Section = ({ id, title, label, children, className }: { id: string; title: string; label: string; children: React.ReactNode; className?: string }) => (
   <section id={id} className={`py-24 md:py-32 border-b border-white/5 ${className}`}>
@@ -57,9 +58,15 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
   const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <div className="min-h-screen bg-brand-void">
+    <div className="min-h-screen bg-brand-void relative overflow-hidden">
+      <NoiseOverlay />
+      
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden pt-20">
+      <section className="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
+        {/* Cinematic Frame / Mask */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black to-transparent z-10 pointer-events-none opacity-80" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-black to-transparent z-10 pointer-events-none opacity-80" />
+        
         <div className="absolute inset-0 z-0 bg-black">
           <video 
             src="/brand-story.mp4" 
@@ -67,43 +74,44 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
             loop 
             muted={isMuted} 
             playsInline 
-            className="w-full h-full object-cover opacity-70"
+            className="w-full h-full object-cover opacity-60 grayscale-[0.2] contrast-125"
           />
-          <div className="absolute inset-0 bg-brand-void/40" />
+          <div className="absolute inset-0 bg-brand-void/30 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-linear-to-b from-transparent via-brand-void/20 to-brand-void/60" />
         </div>
 
         <button 
           onClick={() => setIsMuted(!isMuted)}
-          className="absolute bottom-8 right-8 z-20 p-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-brand-gold/40 text-brand-cream/60 transition-all backdrop-blur-md hidden md:flex"
+          className="absolute bottom-12 right-12 z-20 p-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-brand-gold/40 text-brand-cream/60 transition-all backdrop-blur-md hidden md:flex group"
         >
-          {isMuted ? <VolumeX size={20} /> : <Volume2 className="text-brand-gold" size={20} />}
+          {isMuted ? <VolumeX size={20} /> : <Volume2 className="text-brand-gold group-hover:scale-110 transition-transform" size={20} />}
         </button>
 
 
         <motion.div 
           style={{ y: heroY, opacity: heroOpacity }}
-          className="text-center space-y-6 md:space-y-8 max-w-4xl z-10"
+          className="text-center space-y-8 md:space-y-12 max-w-6xl z-10"
         >
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-4 px-6 py-2.5 rounded-full bg-brand-gold/5 border border-brand-gold/15 text-brand-gold text-[10px] md:text-[12px] font-bold uppercase tracking-[0.4em] backdrop-blur-sm"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse shadow-[0_0_8px_rgba(200,137,30,0.8)]" />
             Friends & Family Round · March 2026
           </motion.div>
           
-          <h1 className="text-6xl sm:text-8xl md:text-[12rem] font-black gold-gradient leading-[0.8] tracking-tighter flex justify-center flex-wrap overflow-hidden py-2 md:py-4">
+          <h1 className="text-7xl sm:text-9xl md:text-[14rem] font-black gold-gradient leading-[0.8] tracking-[-0.04em] flex justify-center flex-wrap overflow-hidden py-4 md:py-6">
             {BRAND_NAME.split('').map((char, i) => (
               <motion.span
                 key={i}
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
+                initial={{ y: "110%", opacity: 0, scale: 1.1 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
                 transition={{
-                  duration: 0.8,
+                  duration: 1.2,
                   ease: [0.22, 1, 0.36, 1],
-                  delay: i * 0.04 + 0.1
+                  delay: i * 0.06 + 0.2
                 }}
                 className="inline-block"
               >
@@ -113,38 +121,38 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
           </h1>
           
           <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 1 }}
-            className="space-y-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            className="space-y-6"
           >
-            <p className="text-xl sm:text-2xl md:text-4xl font-serif italic text-brand-cream/80">
+            <p className="text-2xl sm:text-3xl md:text-5xl font-serif italic text-brand-cream/90 font-light tracking-wide">
               Born in the Himalayas.
             </p>
-            <p className="text-base md:text-xl text-brand-cream/40 max-w-2xl mx-auto font-light leading-relaxed px-4">
-              Reclaiming India's 5,000-year-old spirits heritage through premium craft distillation and innovative RTD formats.
+            <p className="text-base md:text-xl text-brand-cream/40 max-w-3xl mx-auto font-light leading-relaxed px-4 tracking-normal">
+              Reclaiming India's 5,000-year-old spirits heritage through <br className="hidden md:block" /> premium craft distillation and innovative RTD formats.
             </p>
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 pt-8 px-6"
+            transition={{ delay: 1.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col sm:flex-row justify-center gap-6 md:gap-8 pt-12 px-6"
           >
             <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02, backgroundColor: "rgba(200,137,30,0.9)" }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onNavigate('products')}
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-gold text-brand-void font-bold text-sm tracking-widest uppercase shadow-xl hover:shadow-brand-gold/40 transition-shadow text-center"
+              className="w-full sm:w-auto px-12 py-5 rounded-full bg-brand-gold text-brand-void font-bold text-xs tracking-[0.2em] uppercase shadow-[0_20px_40px_rgba(200,137,30,0.15)] hover:shadow-brand-gold/30 transition-all text-center"
             >
               Explore Portfolio
             </motion.button>
             <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onNavigate('invest')}
-              className="w-full sm:w-auto px-8 py-4 rounded-full border border-white/10 text-brand-cream font-bold text-sm tracking-widest uppercase hover:bg-white/5 transition-colors text-center"
+              className="w-full sm:w-auto px-12 py-5 rounded-full border border-white/15 text-brand-cream font-bold text-xs tracking-[0.2em] uppercase transition-all backdrop-blur-md text-center"
             >
               Calculate Returns
             </motion.button>
@@ -154,11 +162,17 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-[8px] md:text-[10px] text-brand-gold/40 font-bold uppercase tracking-[0.3em]"
+          transition={{ delay: 2, duration: 1.5 }}
+          className="absolute bottom-12 md:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 text-[10px] text-brand-gold/40 font-bold uppercase tracking-[0.4em] pointer-events-none"
         >
           Scroll to discover
-          <div className="w-px h-8 md:h-12 bg-linear-to-b from-brand-gold/40 to-transparent" />
+          <div className="w-px h-16 md:h-24 bg-linear-to-b from-brand-gold/40 to-transparent relative overflow-hidden">
+            <motion.div 
+              animate={{ y: ["-100%", "100%"] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+              className="absolute top-0 left-0 w-full h-1/2 bg-linear-to-b from-transparent via-brand-gold to-transparent"
+            />
+          </div>
         </motion.div>
       </section>
 

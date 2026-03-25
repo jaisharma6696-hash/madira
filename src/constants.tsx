@@ -125,45 +125,45 @@ export const PRODUCTS = [
   },
   {
     id: "whiskey-blended",
-    name: "Madira Reserve Blend",
+    name: "Madira 5-Year Reserve",
     line: "Premium Prestige Line",
-    type: "Premium Blended Whisky",
-    description: "A sophisticated blend of high-altitude malts and select grain spirits. Matured in charred oak to achieve a perfect balance of malt sweetness, subtle peat smoke, and mountain spice.",
+    type: "Aged Blended Whisky",
+    description: "A sophisticated blend of high-altitude malts and select grain spirits, aged for 5 years in charred American oak. Matured within the unique pressure zones of the Sirmour Valley to accelerate wood extraction.",
     price: "₹1,850",
     details: [
-      "Profile: Oak, Malt, Soft Smoke",
-      "Aging: High-Altitude Charred Oak",
-      "Character: Modern Premium Blend",
+      "Aging: 5-Year Oak Matured",
+      "Profile: Vanilla, Toasted Malt, Soft Smoke",
+      "Maturation: High-Altitude Himalayan",
       "ABV: 42.8%"
     ],
-    comparison: "Positions itself as a smoother, more characterful alternative to legacy blends like Black Dog and Teacher's.",
+    comparison: "Bridges the gap between entry-level scotch and local premium blends like Black Dog. Maturation at 3,000ft ensures a character depth rarely found in plain-matured whiskeys.",
     competitors: [
-      { name: "Madira Reserve", price: "₹1,850", origin: "Himalayas", features: "High-Altitude Malts, Mountain Spice", isMadira: true },
+      { name: "Madira 5Y", price: "₹1,850", origin: "Himalayas", features: "5-Year Matured, Himalayan Provenance", isMadira: true },
       { name: "Black Dog", price: "₹2,200+", origin: "Scotland/India", features: "Legacy Blend, Peated", isMadira: false },
       { name: "Teacher's", price: "₹1,600+", origin: "Scotland/India", features: "High Malt Content, Smoky", isMadira: false }
     ],
-    positioning: "The Prestige Anchor: A high-margin entry into the dominant whiskey segment, leveraging the 'Mountain Aged' narrative for premiumization.",
+    positioning: "The Prestige Anchor: A high-margin entry into the dominant whiskey segment, leveraging the 5-Year aging narrative for premiumization.",
   },
   {
     id: "single-malt",
-    name: "Madira High Pass Single Malt",
+    name: "Madira 7-Year High Pass",
     line: "Halo Icon Line",
-    type: "Prestige Single Malt",
-    description: "A 100% malted barley whisky, copper pot distilled and matured to develop notes of toasted oak, malt sweetness, dried fruit, and mountain-air brightness.",
+    type: "Peated Single Malt",
+    description: "A prestige 7-Year aged single malt. 100% malted barley, copper pot distilled and matured in the thin air of the Sirmour peaks. Direct competition for Indri-Trini, offering a more intense mountain maturation profile.",
     price: "₹4,500",
     details: [
+      "Aging: 7-Year Cask Strength",
       "Base: 100% Malted Barley",
       "Distillation: Traditional Copper Pot",
-      "Maturation: High-Altitude (Thin Air)",
       "ABV: 46%"
     ],
-    comparison: "Challenging the coastal dominance of Amrut and Paul John with a unique high-altitude maturation profile that is impossible to replicate elsewhere.",
+    comparison: "Challenging the excellence of Indri and Amrut. The 7-year thin-air maturation creates a profile of dried fruit and intense spice that is unique to the Madira range.",
     competitors: [
-      { name: "Madira High Pass", price: "₹4,500", origin: "Himalayas", features: "High-Altitude Maturation, Copper Pot", isMadira: true },
-      { name: "Amrut", price: "₹4,000+", origin: "Bengaluru", features: "Tropical Maturation, Rich & Complex", isMadira: false },
-      { name: "Paul John", price: "₹4,200+", origin: "Goa", features: "Coastal Maturation, Sweet & Spicy", isMadira: false }
+      { name: "Madira 7Y", price: "₹4,500", origin: "Himalayas", features: "7-Year Peak Maturation, Copper Pot", isMadira: true },
+      { name: "Indri-Trini", price: "₹4,200+", origin: "India", features: "Multi-Cask, Award Winning", isMadira: false },
+      { name: "Amrut", price: "₹4,000+", origin: "Bengaluru", features: "Tropical Maturation, Rich & Complex", isMadira: false }
     ],
-    positioning: "The Brand Icon: A limited-release, high-prestige product designed to build brand equity and attract connoisseurs and collectors.",
+    positioning: "The Brand Icon: A high-prestige product designed to compete at the very top of the Indian Single Malt category.",
   },
   {
     id: "madira-balls",

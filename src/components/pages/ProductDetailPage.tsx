@@ -2,7 +2,9 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Droplets, Mountain, Sparkles, Feather, TrendingUp, Shield, BarChart3, Target, LayoutGrid } from 'lucide-react';
 import { PRODUCTS, COMPETITION } from '../../constants';
+import { InvestmentCalculator } from '../InvestmentCalculator';
 import { cn } from '../ui';
+import { NoiseOverlay } from '../NoiseOverlay';
 
 const PRODUCT_IMAGES: Record<string, string> = {
   "gin": "/images/gin.png",
@@ -24,11 +26,38 @@ const CATEGORY_MAP: Record<string, string> = {
   'buzz-balls': 'RTD / Balls'
 };
 
-const MOCK_GALLERY = [
-  "", // Will be replaced by actual product image
-  "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1000", // Distillery
-  "https://images.unsplash.com/photo-1606859191214-25806e8e2423?auto=format&fit=crop&q=80&w=1000", // Detail/Texture
-];
+const PRODUCT_GALLERIES: Record<string, string[]> = {
+  "gin": [
+    "/images/gin.png",
+    "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=1000", // Signature Serve
+    "/images/gin-angle-3.png" // Bespoke Angle
+  ],
+  "vodka": [
+    "/images/vodka.png",
+    "https://images.unsplash.com/photo-1550985543-f47f38aeee65?auto=format&fit=crop&q=80&w=1000", // Glacier Serve
+    "/images/vodka-angle-3.png" // Bespoke Angle
+  ],
+  "rum": [
+    "/images/rum.png",
+    "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1000", // Dark Serve
+    "https://images.unsplash.com/photo-1606859191214-25806e8e2423?auto=format&fit=crop&q=80&w=1000" // Detail
+  ],
+  "whiskey-blended": [
+    "/images/whiskey-blended.png",
+    "https://images.unsplash.com/photo-1527281405128-4c24b10ca4fa?auto=format&fit=crop&q=80&w=1000", // 5Y Pour
+    "https://images.unsplash.com/photo-1590645738363-228032bb3fbd?auto=format&fit=crop&q=80&w=1000" // Cask detail
+  ],
+  "single-malt": [
+    "/images/single-malt.png",
+    "https://images.unsplash.com/photo-1527281405128-4c24b10ca4fa?auto=format&fit=crop&q=80&w=1000", // 7Y Pour
+    "https://images.unsplash.com/photo-1527281405128-4c24b10ca4fa?auto=format&fit=crop&q=80&w=1000" // Detail
+  ],
+  "madira-balls": [
+    "/images/madira-balls.png",
+    "https://images.unsplash.com/photo-1536935338218-d41364c034bc?auto=format&fit=crop&q=80&w=1000", // Social context
+    "https://images.unsplash.com/photo-1620212323297-393963488814?auto=format&fit=crop&q=80&w=1000" // Angle 3
+  ]
+};
 
 export function ProductDetailPage({ product, onNavigate }: { product: typeof PRODUCTS[0] | null, onNavigate: (page: string) => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,8 +73,7 @@ export function ProductDetailPage({ product, onNavigate }: { product: typeof PRO
   }
 
   const categoryComps = COMPETITION.filter(c => c.category === CATEGORY_MAP[product.id]);
-  const mainImage = PRODUCT_IMAGES[product.id] || "/images/gin.png";
-  const gallery = [mainImage, MOCK_GALLERY[1], MOCK_GALLERY[2]];
+  const gallery = PRODUCT_GALLERIES[product.id] || [PRODUCT_IMAGES[product.id], PRODUCT_IMAGES[product.id], PRODUCT_IMAGES[product.id]];
 
   return (
     <div ref={containerRef} className="min-h-screen bg-brand-void relative">
