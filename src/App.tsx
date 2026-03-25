@@ -17,6 +17,10 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage, selectedProduct]);
+
   if (!ageVerified) {
     return (
       <div className="min-h-screen bg-brand-void">

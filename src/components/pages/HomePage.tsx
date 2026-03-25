@@ -48,8 +48,7 @@ const Section = ({ id, title, label, children, className }: { id: string; title:
   </section>
 );
 
-export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: string) => void, onProductSelect?: (p: typeof PRODUCTS[0]) => void }) {
-  const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
+export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: string) => void, onProductSelect: (p: typeof PRODUCTS[0]) => void }) {
   const [compCategory, setCompCategory] = useState('Gin');
   const [isMuted, setIsMuted] = useState(true);
   
@@ -59,160 +58,18 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
 
   return (
     <div className="min-h-screen bg-brand-void">
-      {/* Product Modal */}
-      <AnimatePresence>
-        {selectedProduct && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProduct(null)}
-              className="absolute inset-0 bg-brand-void/90 backdrop-blur-md"
-            />
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-4xl bg-brand-navy border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl"
-            >
-              <button 
-                onClick={() => setSelectedProduct(null)}
-                className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-brand-cream/60 hover:text-white transition-all z-10"
-              >
-                <X size={24} />
-              </button>
-
-              <div className="grid md:grid-cols-2">
-                <div className="p-8 md:p-12 space-y-8 bg-brand-gold/5">
-                  <div className="space-y-4">
-                    <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold">{selectedProduct.type}</div>
-                    <h3 className="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">{selectedProduct.name}</h3>
-                    <div className="text-2xl font-serif font-bold text-brand-gold-light">{selectedProduct.price}</div>
-                  </div>
-                  <p className="text-lg text-brand-cream/80 leading-relaxed font-light italic">
-                    "{selectedProduct.description}"
-                  </p>
-                  <div className="space-y-4">
-                    <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gold/60">Key Details</div>
-                    <div className="grid grid-cols-1 gap-3">
-                      {selectedProduct.details.map((detail, idx) => (
-                        <div key={idx} className="flex items-center gap-3 text-brand-cream/60">
-                          <CheckCircle2 size={16} className="text-brand-gold shrink-0" />
-                          <span className="text-sm font-light">{detail}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-8 md:p-12 space-y-8 flex flex-col justify-center">
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-4">
-                        <div className="w-8 h-px bg-brand-gold/40" />
-                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold">Comparative Analysis</span>
-                      </div>
-                      
-                      <div className="space-y-4">
-                        <div className="space-y-2">
-                          <h4 className="text-xl font-serif font-bold text-white">Market Positioning</h4>
-                          <p className="text-sm text-brand-gold/80 font-medium leading-relaxed">
-                            {selectedProduct.positioning}
-                          </p>
-                        </div>
-
-                        <div className="overflow-hidden rounded-xl border border-white/5 bg-white/5">
-                          <table className="w-full text-left text-[10px] md:text-xs">
-                            <thead>
-                              <tr className="bg-white/10 text-brand-gold uppercase tracking-widest font-bold">
-                                <th className="px-4 py-2">Brand</th>
-                                <th className="px-4 py-2">Origin</th>
-                                <th className="px-4 py-2">Price</th>
-                              </tr>
-                            </thead>
-                            <tbody className="text-brand-cream/60">
-                              {COMPETITION.filter(c => {
-                                const catMap: Record<string, string> = {
-                                  'gin': 'Gin',
-                                  'vodka': 'Vodka',
-                                  'whiskey-blended': 'Whiskey',
-                                  'rum': 'Rum',
-                                  'single-malt': 'Single Malt',
-                                  'madira-balls': 'RTD / Balls',
-                                  'buzz-balls': 'RTD / Balls'
-                                };
-                                return c.category === catMap[selectedProduct.id];
-                              }).map((comp, idx) => (
-                                <tr key={idx} className={cn(
-                                  "border-b border-white/5",
-                                  comp.highlight ? "bg-brand-gold/10 text-white font-medium" : ""
-                                )}>
-                                  <td className="px-4 py-2">{comp.name}</td>
-                                  <td className="px-4 py-2">{comp.origin}</td>
-                                  <td className="px-4 py-2">{comp.price}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                        <p className="text-xs text-brand-cream/40 leading-relaxed font-light italic">
-                          {selectedProduct.comparison}
-                        </p>
-                      </div>
-                    </div>
-
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-4">
-                    <div className="flex items-center gap-3 text-brand-gold">
-                      <TrendingUp size={20} />
-                      <span className="text-xs font-bold uppercase tracking-widest">Growth Potential</span>
-                    </div>
-                    <p className="text-xs text-brand-cream/40 leading-relaxed">
-                      Targeting the premium segment with a structural cost advantage of 20% over Goa-based competitors.
-                    </p>
-                  </div>
-
-                  <div className="flex gap-4 mt-4">
-                    <button 
-                      onClick={() => window.open('mailto:jai.sharma6696@gmail.com?subject=Sample Request: ' + selectedProduct.name)}
-                      className="flex-1 py-4 rounded-full bg-brand-gold text-brand-void font-bold text-sm tracking-[0.2em] uppercase hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
-                    >
-                      <Droplets size={18} />
-                      Request Sample
-                    </button>
-                    <button 
-                      onClick={() => setSelectedProduct(null)}
-                      className="px-8 py-4 rounded-full border border-white/10 text-brand-cream font-bold text-sm tracking-[0.2em] uppercase hover:bg-white/5 transition-all"
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-
-
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden pt-20">
-        <div className="absolute inset-0 -z-10 bg-black">
+        <div className="absolute inset-0 z-0 bg-black">
           <video 
             src="/brand-story.mp4" 
             autoPlay 
             loop 
             muted={isMuted} 
             playsInline 
-            className="w-full h-full object-cover opacity-50 scale-105"
+            className="w-full h-full object-cover opacity-70"
           />
-          <div className="absolute inset-0 bg-linear-to-b from-brand-void/60 via-brand-void/30 to-brand-void" />
-          <div className="absolute inset-0 opacity-[0.03]" 
-            style={{ 
-              backgroundImage: `linear-gradient(var(--color-brand-gold) 1px, transparent 1px), linear-gradient(90deg, var(--color-brand-gold) 1px, transparent 1px)`,
-              backgroundSize: '80px 80px'
-            }} 
-          />
+          <div className="absolute inset-0 bg-brand-void/40" />
         </div>
 
         <button 
@@ -415,7 +272,7 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ delay: i * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                    onClick={() => { if (onProductSelect) { onProductSelect(product); } else { setSelectedProduct(product); } }}
+                    onClick={() => onProductSelect(product)}
                     className={cn(
                       "glass-card p-8 md:p-10 space-y-6 md:space-y-8 flex flex-col group cursor-pointer border-white/5 hover:border-brand-gold/40 hover:bg-brand-gold/[0.02] transition-all active:scale-[0.98] relative overflow-hidden",
                       group.line === "Halo Icon Line" ? "border-brand-gold/30 bg-brand-gold/[0.02]" : ""

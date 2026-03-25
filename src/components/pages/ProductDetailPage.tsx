@@ -61,7 +61,7 @@ export function ProductDetailPage({ product, onNavigate }: { product: typeof PRO
       <div className="flex flex-col xl:flex-row w-full">
         
         {/* Left Side: Interactive Image Gallery */}
-        <div className="xl:w-1/2 xl:h-screen xl:sticky top-0 relative overflow-hidden order-2 xl:order-1 border-r border-white/5 flex">
+        <div className="xl:w-1/2 xl:h-screen xl:sticky top-0 relative overflow-hidden order-1 border-r border-white/5 flex">
           
           {/* Thumbnails */}
           <div className="absolute left-8 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-4 hidden md:flex">
@@ -92,7 +92,7 @@ export function ProductDetailPage({ product, onNavigate }: { product: typeof PRO
                 alt={product.name} 
                 className={cn(
                   "w-full h-full object-cover",
-                  activeImage === 0 ? "object-contain p-12 lg:p-24 grayscale-[0.2]" : "object-cover grayscale"
+                  activeImage === 0 ? "object-contain grayscale-[0.2]" : "object-cover grayscale"
                 )}
               />
             </AnimatePresence>
@@ -110,7 +110,7 @@ export function ProductDetailPage({ product, onNavigate }: { product: typeof PRO
         </div>
 
         {/* Right Side: Scroll Narrative */}
-        <div className="xl:w-1/2 p-8 md:p-16 lg:px-24 lg:py-32 space-y-32 order-1 xl:order-2">
+        <div className="xl:w-1/2 p-8 md:p-16 lg:px-24 lg:py-32 space-y-32 order-2">
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
