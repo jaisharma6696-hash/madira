@@ -470,6 +470,12 @@ export function PitchDeck({ onSwitchToMemo, onNavigate }: { onSwitchToMemo: () =
               Invest Now
             </button>
             <button
+              onClick={() => onNavigate('home')}
+              className="w-full sm:w-auto px-10 py-5 rounded-full border border-white/10 text-brand-cream font-bold text-sm tracking-[0.2em] uppercase hover:bg-white/5 transition-colors"
+            >
+              Return to Story
+            </button>
+            <button
               onClick={onSwitchToMemo}
               className="w-full sm:w-auto px-10 py-5 rounded-full border border-white/10 text-brand-cream font-bold text-sm tracking-[0.2em] uppercase hover:bg-white/5 transition-colors"
             >

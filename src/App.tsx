@@ -5,6 +5,7 @@ import { NoiseOverlay } from './components/NoiseOverlay';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 import { AgeGate } from './components/AgeGate';
+import { AudioPlayer } from './components/AudioPlayer';
 import { HomePage } from './components/pages/HomePage';
 import { ProductsPage } from './components/pages/ProductsPage';
 import { ProductDetailPage } from './components/pages/ProductDetailPage';
@@ -21,15 +22,6 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [currentPage, selectedProduct]);
 
-  if (!ageVerified) {
-    return (
-      <div className="min-h-screen bg-brand-void">
-        <NoiseOverlay />
-        <AgeGate onVerified={() => setAgeVerified(true)} />
-      </div>
-    );
-  }
-
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
@@ -37,7 +29,7 @@ export default function App() {
       case 'products':
         return <ProductsPage onNavigate={setCurrentPage} onProductSelect={(p) => { setSelectedProduct(p); setCurrentPage('detail'); }} />;
       case 'detail':
-        return <ProductDetailPage product={selectedProduct} onNavigate={setCurrentPage} />;
+        return <ProductDetailPage product={selectedProduct} onNavigate={setCurrentPage} onProductSelect={(p) => { setSelectedProduct(p); window.scrollTo(0, 0); }} />;
       case 'invest':
         return <InvestPage onNavigate={setCurrentPage} />;
       case 'pitchdeck':
@@ -45,7 +37,7 @@ export default function App() {
       case 'icmemo':
         return <ICMemo onSwitchToDeck={() => setCurrentPage('pitchdeck')} onNavigate={setCurrentPage} />;
       default:
-        return <HomePage onNavigate={setCurrentPage} />;
+        return <HomePage onNavigate={setCurrentPage} onProductSelect={(p) => { setSelectedProduct(p); setCurrentPage('detail'); }} />;
     }
   };
 
@@ -55,22 +47,27 @@ export default function App() {
     <div className="min-h-screen bg-brand-void text-brand-cream overflow-x-hidden">
       <NoiseOverlay />
       <CustomCursor />
-      {!isStandalone && <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />}
+      <AudioPlayer autoStart={ageVerified} />
 
       <AnimatePresence mode="wait">
-        <motion.div
-          key={currentPage}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="min-h-screen flex flex-col"
-        >
-          <div className="flex-1">
-            {renderPage()}
-          </div>
-          {!isStandalone && <Footer onNavigate={setCurrentPage} />}
-        </motion.div>
+        {!ageVerified ? (
+          <AgeGate key="age-gate" onVerified={() => setAgeVerified(true)} />
+        ) : (
+          <motion.div
+            key={currentPage}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="min-h-screen flex flex-col"
+          >
+            <div className="flex-1">
+              {!isStandalone && <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />}
+              {renderPage()}
+            </div>
+            {!isStandalone && <Footer onNavigate={setCurrentPage} />}
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );

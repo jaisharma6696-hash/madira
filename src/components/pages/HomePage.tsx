@@ -36,6 +36,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { InvestmentCalculator } from '../InvestmentCalculator';
 import { cn } from '../ui';
 import { NoiseOverlay } from '../NoiseOverlay';
+import { CinematicHero } from '../CinematicHero';
 
 const Section = ({ id, title, label, children, className }: { id: string; title: string; label: string; children: React.ReactNode; className?: string }) => (
   <section id={id} className={`py-24 md:py-32 border-b border-white/5 ${className}`}>
@@ -59,7 +60,6 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
 
   return (
     <div className="min-h-screen bg-brand-void relative overflow-hidden">
-      <NoiseOverlay />
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
@@ -67,18 +67,7 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
         <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black to-transparent z-10 pointer-events-none opacity-80" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-black to-transparent z-10 pointer-events-none opacity-80" />
         
-        <div className="absolute inset-0 z-0 bg-black">
-          <video 
-            src={BRAND_VIDEO_URL} 
-            autoPlay 
-            loop 
-            muted={isMuted} 
-            playsInline 
-            className="w-full h-full object-cover opacity-50 grayscale-[0.1] contrast-110"
-          />
-          <div className="absolute inset-0 bg-brand-void/30 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-linear-to-b from-transparent via-brand-void/20 to-brand-void/60" />
-        </div>
+        <CinematicHero />
 
         <button 
           onClick={() => setIsMuted(!isMuted)}
@@ -218,7 +207,7 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
 
           <div className="relative aspect-square rounded-[4rem] overflow-hidden group">
             <img 
-              src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" 
+              src="/bespoke/mountain_source.png" 
               alt="Himalayan Mountains" 
               className="w-full h-full object-cover grayscale opacity-40 group-hover:scale-110 transition-transform duration-1000"
               referrerPolicy="no-referrer"

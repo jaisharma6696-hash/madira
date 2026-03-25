@@ -80,3 +80,28 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030710; /* brand-void */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C8891E; /* brand-gold */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F5D98A; /* brand-gold-light */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #C8891E #030710;
+}

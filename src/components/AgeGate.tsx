@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
-export function AgeGate({ onVerified }: { onVerified: () => void }) {
+export function AgeGate({ onVerified }: { onVerified: () => void, key?: string }) {
   const [birthYear, setBirthYear] = useState('');
   const [error, setError] = useState('');
   const [isExiting, setIsExiting] = useState(false);

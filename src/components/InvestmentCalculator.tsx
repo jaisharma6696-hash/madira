@@ -63,13 +63,13 @@ export function InvestmentCalculator() {
     {
       name: 'Conservative',
       value: exitValue3x,
-      color: 'rgba(100, 116, 139, 0.4)', // slate-500 with opacity
-      hoverColor: 'rgba(100, 116, 139, 0.8)'
+      color: 'rgba(212, 175, 55, 0.2)', // brand-gold with low opacity
+      hoverColor: 'rgba(212, 175, 55, 0.5)'
     },
     {
       name: 'Bull Case',
       value: exitValue7x,
-      color: 'rgba(200, 137, 30, 0.4)', // brand-gold with opacity
+      color: 'rgba(200, 137, 30, 0.6)', // brand-gold with high opacity
       hoverColor: 'rgba(200, 137, 30, 1)'
     }
   ];
@@ -306,7 +306,7 @@ export function InvestmentCalculator() {
                   </div>
                   <div className="relative z-10 space-y-4">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                      <span className="px-3 py-1 rounded-full bg-slate-800 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-full bg-brand-gold/5 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-brand-gold/40 flex items-center gap-2">
                         Conservative <Info size={10} />
                       </span>
                       <span className="text-xl md:text-2xl font-serif font-bold text-brand-gold-light">{roi3x.toFixed(1)}x Return</span>
@@ -360,7 +360,7 @@ export function InvestmentCalculator() {
                   <thead>
                     <tr className="border-b border-white/5">
                       <th className="p-4 md:p-6 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-brand-cream/40">Metric</th>
-                      <th className="p-4 md:p-6 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-slate-400">Conservative</th>
+                      <th className="p-4 md:p-6 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-brand-gold/60">Conservative</th>
                       <th className="p-4 md:p-6 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-brand-gold">Bull Case</th>
                     </tr>
                   </thead>

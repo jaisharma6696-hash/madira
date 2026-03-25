@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, Droplets, Mountain, Sparkles, Feather, TrendingUp, Shield, BarChart3, Target, LayoutGrid } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Droplets, Mountain, Sparkles, Feather, TrendingUp, Shield, BarChart3, Target, LayoutGrid } from 'lucide-react';
 import { PRODUCTS, COMPETITION } from '../../constants';
 import { InvestmentCalculator } from '../InvestmentCalculator';
 import { cn } from '../ui';
@@ -25,48 +25,52 @@ const CATEGORY_MAP: Record<string, string> = {
   'madira-balls': 'RTD / Balls',
   'buzz-balls': 'RTD / Balls'
 };
-
 const PRODUCT_GALLERIES: Record<string, string[]> = {
   "gin": [
     "/images/gin.png",
-    "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=1000", // Signature Serve
-    "/images/gin-angle-3.png" // Bespoke Angle
+    "/bespoke/gin_botanicals.png",
+    "/madira_gin_angle_3_v2_1774451160568.png"
   ],
   "vodka": [
     "/images/vodka.png",
-    "https://images.unsplash.com/photo-1550985543-f47f38aeee65?auto=format&fit=crop&q=80&w=1000", // Glacier Serve
-    "/images/vodka-angle-3.png" // Bespoke Angle
+    "/bespoke/vodka_glacier.png",
+    "/madira_vodka_angle_3_v2_1774451180182.png"
   ],
   "rum": [
     "/images/rum.png",
-    "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1000", // Dark Serve
-    "https://images.unsplash.com/photo-1606859191214-25806e8e2423?auto=format&fit=crop&q=80&w=1000" // Detail
+    "/bespoke/rum_barrels.png",
+    "/madira_rum_angle3_v9_1774452020000_png_1774453173843.png"
   ],
   "whiskey-blended": [
     "/images/whiskey-blended.png",
-    "https://images.unsplash.com/photo-1527281405128-4c24b10ca4fa?auto=format&fit=crop&q=80&w=1000", // 5Y Pour
-    "https://images.unsplash.com/photo-1532634893-f43423f790fb?auto=format&fit=crop&q=80&w=1000" // Barrels
+    "/bespoke/whiskey_istill.png",
+    "/madira_whiskey_angle3_v9_1774452000000_png_1774453358704.png"
   ],
   "single-malt": [
     "/images/single-malt.png",
-    "https://images.unsplash.com/photo-1527281405128-4c24b10ca4fa?auto=format&fit=crop&q=80&w=1000", // 7Y Pour
-    "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1000" // Cask
-  ],
-  "madira-balls": [
-    "/images/madira-balls.png",
-    "https://images.unsplash.com/photo-1536935338218-d41364c034bc?auto=format&fit=crop&q=80&w=1000", // Social
-    "https://images.unsplash.com/photo-1620212323297-393963488814?auto=format&fit=crop&q=80&w=1000" // Innovative format
+    "/bespoke/single_malt_cave.png",
+    "/madira_single_malt_angle3_v9_1774452040000_png_1774453403401.png"
   ],
   "buzz-balls": [
-    "/images/buzz-balls.png",
-    "https://images.unsplash.com/photo-1536935338218-d41364c034bc?auto=format&fit=crop&q=80&w=1000", // Social
-    "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1000" // Mixology
+    "/madira_balls_rtd_1774439700507.png",
+    "/bespoke/buzz_balls_lifestyle.png",
+    "/madira_buzz_balls_angle3_v9_1774452060000_png_1774453456799.png"
+  ],
+  "madira-balls": [
+    "/madira_balls_1774435259923.png",
+    "/bespoke/balls_serving.png",
+    "/madira_balls_angle3_v9_1774452080000_png_1774453504958.png"
   ]
 };
 
-export function ProductDetailPage({ product, onNavigate }: { product: typeof PRODUCTS[0] | null, onNavigate: (page: string) => void }) {
+export function ProductDetailPage({ product, onNavigate, onProductSelect }: { product: typeof PRODUCTS[0] | null, onNavigate: (page: string) => void, onProductSelect: (p: typeof PRODUCTS[0]) => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeImage, setActiveImage] = useState(0);
+
+  // Reset gallery position when the product changes
+  React.useEffect(() => {
+    setActiveImage(0);
+  }, [product?.id]);
   
   if (!product) {
     return (
@@ -167,14 +171,14 @@ export function ProductDetailPage({ product, onNavigate }: { product: typeof PRO
             </p>
 
             {/* Mobile Thumbnails */}
-            <div className="flex gap-4 md:hidden pt-8">
+            <div className="flex gap-4 md:hidden pt-8 pb-4 overflow-x-auto no-scrollbar">
               {gallery.map((img, idx) => (
                 <button 
                   key={idx}
                   onClick={() => setActiveImage(idx)}
                   className={cn(
-                    "w-16 h-16 rounded-xl overflow-hidden border-2 transition-all duration-300",
-                    activeImage === idx ? "border-brand-gold" : "border-white/10 opacity-50 grayscale"
+                    "w-20 h-20 shrink-0 rounded-2xl overflow-hidden border-2 transition-all duration-300",
+                    activeImage === idx ? "border-brand-gold ring-4 ring-brand-gold/20 scale-95" : "border-white/10 opacity-50 grayscale"
                   )}
                 >
                   <img src={img} alt={`Angle ${idx + 1}`} className="w-full h-full object-cover" />
@@ -296,6 +300,29 @@ export function ProductDetailPage({ product, onNavigate }: { product: typeof PRO
                   </li>
                 ))}
               </ul>
+            </div>
+          </div>
+
+          {/* Next Product Navigation */}
+          <div className="pt-32 pb-16 border-t border-white/5">
+            <div className="text-center space-y-8">
+              <div className="text-[10px] font-bold text-brand-gold uppercase tracking-[0.4em]">Continue the Journey</div>
+              
+              {(() => {
+                const currentIndex = PRODUCTS.findIndex(p => p.id === product.id);
+                const nextProduct = PRODUCTS[(currentIndex + 1) % PRODUCTS.length];
+                return (
+                  <button 
+                    onClick={() => onProductSelect(nextProduct as any)}
+                    className="group space-y-6"
+                  >
+                    <div className="text-4xl md:text-6xl font-serif font-black text-white group-hover:text-brand-gold transition-colors">
+                      {nextProduct.name} <ArrowUpRight className="inline-block ml-2 opacity-20 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" size={32} />
+                    </div>
+                    <div className="text-sm text-brand-cream/40 uppercase tracking-[0.2em] font-bold">Discover {nextProduct.line}</div>
+                  </button>
+                );
+              })()}
             </div>
           </div>
 

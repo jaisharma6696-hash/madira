@@ -12,8 +12,6 @@ export const CORE_VALUES = [
 
 export const VISUAL_IDENTITY = {
   colors: [
-    { name: "Himalayan Navy", hex: "#0B1422", desc: "The deep, mysterious shadows of the mountain range at dusk." },
-    { name: "Sun-drenched Gold", hex: "#C8891E", desc: "The first light hitting the peaks; a symbol of premium quality." },
     { name: "Glacial Cream", hex: "#F0E8D5", desc: "The purity of unrefined botanicals and mountain spring water." },
   ],
   typography: "Playfair Display (Serif) for legacy, Inter (Sans) for modern precision.",
