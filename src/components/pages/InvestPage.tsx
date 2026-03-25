@@ -3,10 +3,13 @@ import { motion } from 'motion/react';
 import { 
   TrendingUp, Shield, Target, BarChart3, Users, 
   Mountain, Droplets, Store, Zap, Award, ArrowRight,
-  CheckCircle2, PieChart, Layers, Globe, Clock
+  CheckCircle2, Layers, Globe, Clock,
+  Briefcase, Sparkles, Check, GlassWater, ArrowUpRight
 } from 'lucide-react';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { MARKET_STATS, FINANCIALS, TRACTION, USE_OF_FUNDS, TEAM } from '../../constants';
 import { InvestmentCalculator } from '../InvestmentCalculator';
+import { cn } from '../ui';
 
 const Section = ({ children, id, className = '' }: { children: React.ReactNode, id?: string, className?: string }) => (
   <section id={id} className={`py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto ${className}`}>
@@ -51,10 +54,10 @@ export function InvestPage({ onNavigate }: { onNavigate: (page: string) => void 
             Investor Relations · Seed Round · 2026
           </div>
           <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-serif font-black text-white leading-[0.9] tracking-tighter">
-            Why Invest in <span className="gold-gradient italic">Madira</span>
+            The Inevitability of <span className="gold-gradient italic">Madira.</span>
           </h1>
           <p className="text-xl md:text-2xl text-brand-cream/50 max-w-3xl mx-auto font-light leading-relaxed">
-            India's craft spirits market is at an inflection point. Madira is positioned to capture this moment with an unfair structural advantage.
+            Premiumisation is not a trend; it's a structural shift in the Indian economy. Madira is the vehicle to capture this $22B transition.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <motion.button
@@ -95,10 +98,27 @@ export function InvestPage({ onNavigate }: { onNavigate: (page: string) => void 
               <StatCard key={i} label={stat.label} value={stat.value} sub={stat.sub} icon={<TrendingUp size={20} />} />
             ))}
           </div>
+
+          {/* Why Now: Timing Window */}
+          <div className="grid md:grid-cols-2 gap-12 pt-16">
+            <div className="space-y-6">
+              <h3 className="text-3xl font-serif font-bold text-white">The "Why Now" <br /><span className="italic text-brand-gold/60">Timing Window</span></h3>
+              <p className="text-lg text-brand-cream/40 leading-relaxed font-light">
+                India has 150M+ Gen-Z and Millennials entering the legal drinking age. They are brand-conscious, quality-obsessed, and have high disposable income. Unlike legacy brands, Madira is built for this digital-native, palette-forward generation.
+              </p>
+            </div>
+            <div className="p-10 rounded-[2rem] bg-brand-gold/5 border border-brand-gold/20 flex items-center justify-center text-center">
+              <div className="space-y-4">
+                <div className="text-xs font-bold text-brand-gold uppercase tracking-[0.3em]">Market Tailwinds</div>
+                <div className="text-5xl font-serif font-bold text-white">22% CAGR</div>
+                <div className="text-sm text-brand-cream/40">Expected growth in Premium Gin & Single Malt (2024-2029)</div>
+              </div>
+            </div>
+          </div>
         </div>
       </Section>
 
-      {/* Why Madira — 5 Pillars */}
+      {/* The Proof — 5 Pillars */}
       <Section id="pillars" className="border-t border-white/5">
         <div className="space-y-20">
           <div className="max-w-3xl space-y-4">
@@ -208,6 +228,75 @@ export function InvestPage({ onNavigate }: { onNavigate: (page: string) => void 
         </div>
       </Section>
 
+      {/* Path to Liquidity — Comparables */}
+      <Section id="liquidity" className="border-y border-white/5 bg-brand-navy/10">
+        <div className="space-y-16">
+          <div className="max-w-3xl space-y-4">
+            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold">Exit Strategy</div>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight">
+              Path to <span className="italic text-brand-gold/60">Liquidity</span>
+            </h2>
+            <p className="text-lg text-brand-cream/50 leading-relaxed font-light">
+              The Indian spirits space is seeing record M&A activity from global giants (Diageo, Pernod Ricard) seeking local craft provenance.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="glass-card p-10 space-y-8 border-white/10">
+              <div className="space-y-2">
+                <div className="text-[10px] font-bold text-brand-cream/40 uppercase tracking-widest">Industry Comparable</div>
+                <h3 className="text-3xl font-serif font-bold text-white">Nao Spirits (Greater Than)</h3>
+              </div>
+              <div className="space-y-6">
+                <div className="flex justify-between items-end">
+                  <span className="text-sm text-brand-cream/60">Strategic Investment</span>
+                  <span className="text-2xl font-serif font-bold text-white">Diageo</span>
+                </div>
+                <div className="h-px bg-white/5" />
+                <div className="flex justify-between items-end">
+                  <span className="text-sm text-brand-cream/60">Investment Size</span>
+                  <span className="text-2xl font-serif font-bold text-white">₹31.5 Cr</span>
+                </div>
+                <div className="h-px bg-white/5" />
+                <div className="flex justify-between items-end">
+                  <span className="text-sm text-brand-cream/60">Equity Stake</span>
+                  <span className="text-2xl font-serif font-bold text-brand-gold">~22.5%</span>
+                </div>
+              </div>
+              <p className="text-xs text-brand-cream/40 italic leading-relaxed">
+                *Nao Spirits validated the 'Indian Craft Gin' category. Madira is scaling this across Gin, Vodka, Rum, and RTD with 10x the distribution moat.
+              </p>
+            </div>
+
+            <div className="glass-card p-10 space-y-8 border-brand-gold/20 bg-brand-gold/[0.02]">
+              <div className="space-y-2">
+                <div className="text-[10px] font-bold text-brand-gold uppercase tracking-widest">The Madira Path</div>
+                <h3 className="text-3xl font-serif font-bold text-white">Phase 1 Target</h3>
+              </div>
+              <ul className="space-y-6">
+                {[
+                  "Acquisition by Global House (Diageo/Pernod)",
+                  "Secondary Sale to Growth PE in Series A",
+                  "Cross-Border Aggregation (APAC Spirits House)"
+                ].map((path, i) => (
+                  <li key={i} className="flex items-center gap-4 text-brand-cream/80 text-sm">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand-gold shadow-[0_0_10px_rgba(200,137,30,0.5)]" />
+                    {path}
+                  </li>
+                ))}
+              </ul>
+              <div className="pt-4">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-2">
+                  <div className="text-[10px] font-bold text-brand-gold/60 uppercase tracking-widest">Target ROE</div>
+                  <div className="text-3xl font-serif font-bold text-white">12x – 18x</div>
+                  <div className="text-[10px] text-brand-cream/40">Projected 5-Year Multiple</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       {/* The Calculator */}
       <Section id="calculator" className="border-t border-white/5">
         <div className="space-y-16">
@@ -308,7 +397,6 @@ export function InvestPage({ onNavigate }: { onNavigate: (page: string) => void 
                   <div className="flex-1 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-lg text-white font-medium uppercase tracking-wide">{item.label}</span>
-                      <span className="text-xs text-brand-cream/40">{item.details}</span>
                     </div>
                     <div className="h-1 bg-white/10 rounded-full overflow-hidden">
                       <motion.div
@@ -421,7 +509,7 @@ export function InvestPage({ onNavigate }: { onNavigate: (page: string) => void 
       </Section>
 
       {/* Final CTA */}
-      <section className="py-32 md:py-40 px-6 text-center relative overflow-hidden">
+      <section className="py-32 md:py-40 px-6 text-center relative overflow-hidden text-brand-cream">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-gold/5 blur-[120px]" />
         </div>
@@ -451,18 +539,6 @@ export function InvestPage({ onNavigate }: { onNavigate: (page: string) => void 
             >
               Read IC Memo
             </motion.button>
-          </div>
-          <div className="pt-12 grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-white/5">
-            {[
-              { label: "Target Raise", value: "₹50-75L" },
-              { label: "Min. Ticket", value: "₹2.5L" },
-              { label: "Round Status", value: "Closing Soon" }
-            ].map((item, i) => (
-              <div key={i} className="space-y-1">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-brand-gold/40">{item.label}</div>
-                <div className="text-xl font-serif font-bold text-white">{item.value}</div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

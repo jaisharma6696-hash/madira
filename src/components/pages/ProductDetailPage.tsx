@@ -163,7 +163,10 @@ export function ProductDetailPage({ product, onNavigate, onProductSelect }: { pr
               <h1 className="text-5xl md:text-7xl lg:text-[5rem] font-serif font-black text-white leading-[0.9] tracking-tighter">
                 {product.name}
               </h1>
-              <div className="text-2xl font-serif text-brand-gold-light/60 italic mt-4">{product.price}</div>
+              <div className="text-xl md:text-2xl text-brand-gold font-light tracking-widest mt-4 uppercase">
+                Designed for modern Indian palates.
+              </div>
+              <div className="text-2xl font-serif text-brand-gold-light/60 italic mt-2">{product.price}</div>
             </div>
             
             <p className="text-xl md:text-2xl text-brand-cream/60 leading-relaxed font-light border-l-2 border-brand-gold/40 pl-6 lg:pl-8">
@@ -192,10 +195,10 @@ export function ProductDetailPage({ product, onNavigate, onProductSelect }: { pr
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <Target className="text-brand-gold" size={24} />
-                <h3 className="text-3xl font-serif font-bold text-white">Brand Thesis</h3>
+                <h3 className="text-3xl font-serif font-bold text-white">The Narrative Why</h3>
               </div>
               <p className="text-lg text-brand-cream/40 leading-relaxed font-light">
-                {product.positioning} This is not a mass-market pour. Every curve of the bottle and every botanical in the recipe has been designed strictly to elevate the sensory experience, maintaining an editorial distance from the generic tropes of modern alcohol. Minimum intervention, maximum provenance.
+                {product.positioning} Madira exists to bridge the gap between ancient Himalayan distillation and the global luxury stage. We don't just follow recipes; we engineer moments of civilisational pride through liquid excellence.
               </p>
             </div>
 
@@ -283,23 +286,31 @@ export function ProductDetailPage({ product, onNavigate, onProductSelect }: { pr
             </div>
           )}
 
-          {/* Sensory Profile */}
+          {/* Sensory Ritual & Tasting Notes */}
           <div className="pt-16 border-t border-white/5 space-y-10">
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <LayoutGrid className="text-brand-gold" size={24} />
-                <h3 className="text-3xl font-serif font-bold text-white">Sensory Profile</h3>
+                <h3 className="text-3xl font-serif font-bold text-white">The Tasting Ritual</h3>
               </div>
-              <ul className="grid gap-4">
+              <div className="grid gap-4">
                 {product.details.map((detail, idx) => (
-                  <li key={idx} className="flex gap-4 p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-gold/30 transition-colors">
-                    <div className="w-6 h-6 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold text-xs shrink-0 mt-0.5">
+                  <motion.li 
+                    key={idx} 
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="flex gap-4 p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-gold/30 transition-colors list-none"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold font-bold text-[10px] shrink-0 mt-0.5">
                       {idx + 1}
                     </div>
-                    <span className="text-base text-brand-cream/80 font-light leading-relaxed">{detail}</span>
-                  </li>
+                    <div className="space-y-1">
+                      <span className="text-base text-brand-cream/80 font-light leading-relaxed">{detail}</span>
+                    </div>
+                  </motion.li>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
 
@@ -340,10 +351,10 @@ export function ProductDetailPage({ product, onNavigate, onProductSelect }: { pr
                 Acquire Allocation
               </button>
               <button 
-                onClick={() => window.open('mailto:jai.sharma6696@gmail.com?subject=Sample Request: ' + product.name)}
-                className="px-10 py-5 rounded-full border border-white/10 text-brand-cream font-bold text-sm tracking-[0.2em] uppercase hover:bg-white/5 transition-all"
+                onClick={() => onNavigate('invest')}
+                className="px-10 py-5 rounded-full border border-brand-gold/20 text-brand-gold font-bold text-sm tracking-[0.2em] uppercase hover:bg-brand-gold/5 transition-all"
               >
-                Request Sample
+                Request Trade Deck
               </button>
             </div>
           </div>

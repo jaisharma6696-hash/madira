@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { PRODUCTS } from '../../constants';
 import { ArrowRight, ArrowUpRight, Award, Beaker } from 'lucide-react';
 import { cn } from '../ui';
@@ -15,11 +15,19 @@ const PRODUCT_IMAGES: Record<string, string> = {
 };
 
 export function ProductsPage({ onNavigate, onProductSelect }: { onNavigate: (page: string) => void, onProductSelect: (p: typeof PRODUCTS[0]) => void }) {
+  const [activeOccasion, setActiveOccasion] = React.useState('All');
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
   
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  const OCCASIONS = ['All', 'Party', 'Gifting', 'Bar', 'Personal'];
+
+  const filteredProducts = activeOccasion === 'All' 
+    ? PRODUCTS 
+    : PRODUCTS.filter(p => p.details.some(d => d.toLowerCase().includes(activeOccasion.toLowerCase())) || 
+                           p.positioning.toLowerCase().includes(activeOccasion.toLowerCase()));
 
   return (
     <div ref={containerRef} className="min-h-screen bg-brand-void pt-32 pb-40">
@@ -38,8 +46,8 @@ export function ProductsPage({ onNavigate, onProductSelect }: { onNavigate: (pag
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold">The Portfolio</span>
           </div>
           <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-serif font-black text-white leading-[0.85] tracking-tighter">
-            Sculpted <br />
-            <span className="italic text-brand-gold/60 font-light">in Glass.</span>
+            Craft, Culture <br />
+            <span className="italic text-brand-gold/60 font-light">& Occasion.</span>
           </h1>
         </motion.div>
         
@@ -96,13 +104,34 @@ export function ProductsPage({ onNavigate, onProductSelect }: { onNavigate: (pag
 
       {/* Immersive Products Grid */}
       <section className="px-6 max-w-7xl mx-auto space-y-32">
-        <div className="text-center space-y-4 mb-20">
-          <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">The Collection</h2>
-          <p className="text-brand-cream/40 tracking-widest uppercase text-xs font-bold">From Core to Halo</p>
+        <div className="space-y-12 mb-20">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white">The Collection</h2>
+            <p className="text-brand-cream/40 tracking-widest uppercase text-xs font-bold font-sans">A portfolio built for modern Indian palates</p>
+          </div>
+
+          {/* Occasion Filter */}
+          <div className="flex flex-wrap justify-center gap-2 md:gap-4">
+            {OCCASIONS.map(occ => (
+              <button
+                key={occ}
+                onClick={() => setActiveOccasion(occ)}
+                className={cn(
+                  "px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-all",
+                  activeOccasion === occ 
+                    ? "bg-brand-gold text-brand-void border-brand-gold shadow-lg shadow-brand-gold/20" 
+                    : "bg-white/5 text-brand-cream/40 border-white/10 hover:border-brand-gold/40"
+                )}
+              >
+                {occ} {occ !== 'All' ? 'Moments' : ''}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="space-y-40">
-          {PRODUCTS.map((product, i) => (
+          <AnimatePresence mode="wait">
+            {filteredProducts.map((product, i) => (
             <motion.div 
               key={product.id}
               initial={{ opacity: 0, y: 60 }}
@@ -186,6 +215,7 @@ export function ProductsPage({ onNavigate, onProductSelect }: { onNavigate: (pag
               </div>
             </motion.div>
           ))}
+          </AnimatePresence>
         </div>
       </section>
     </div>

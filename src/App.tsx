@@ -9,6 +9,7 @@ import { AudioPlayer } from './components/AudioPlayer';
 import { HomePage } from './components/pages/HomePage';
 import { ProductsPage } from './components/pages/ProductsPage';
 import { ProductDetailPage } from './components/pages/ProductDetailPage';
+import { TradePage } from './components/pages/TradePage';
 import { InvestPage } from './components/pages/InvestPage';
 import { PitchDeck } from './components/PitchDeck';
 import { ICMemo } from './components/ICMemo';
@@ -30,6 +31,8 @@ export default function App() {
         return <ProductsPage onNavigate={setCurrentPage} onProductSelect={(p) => { setSelectedProduct(p); setCurrentPage('detail'); }} />;
       case 'detail':
         return <ProductDetailPage product={selectedProduct} onNavigate={setCurrentPage} onProductSelect={(p) => { setSelectedProduct(p); window.scrollTo(0, 0); }} />;
+      case 'trade':
+        return <TradePage onNavigate={setCurrentPage} />;
       case 'invest':
         return <InvestPage onNavigate={setCurrentPage} />;
       case 'pitchdeck':

@@ -115,11 +115,12 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
             transition={{ delay: 1.2, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-6"
           >
-            <p className="text-2xl sm:text-3xl md:text-5xl font-serif italic text-brand-cream/90 font-light tracking-wide">
-              Born in the Himalayas.
+            <p className="text-2xl sm:text-3xl md:text-5xl font-serif italic text-brand-cream/90 font-light tracking-wide max-w-4xl mx-auto leading-tight">
+              India built the world’s oldest drinking culture. <br />
+              It never built a global spirits house.
             </p>
-            <p className="text-base md:text-xl text-brand-cream/40 max-w-3xl mx-auto font-light leading-relaxed px-4 tracking-normal">
-              Reclaiming India's 5,000-year-old spirits heritage through <br className="hidden md:block" /> premium craft distillation and innovative RTD formats.
+            <p className="text-2xl md:text-4xl gold-gradient font-bold uppercase tracking-widest mt-4">
+              Madira is that house.
             </p>
           </motion.div>
 
@@ -127,40 +128,128 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row justify-center gap-6 md:gap-8 pt-12 px-6"
+            className="flex flex-col md:flex-row justify-center gap-4 md:gap-6 pt-12 px-6"
           >
             <motion.button 
-              whileHover={{ scale: 1.02, backgroundColor: "rgba(200,137,30,0.9)" }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => onNavigate('products')}
-              className="w-full sm:w-auto px-12 py-5 rounded-full bg-brand-gold text-brand-void font-bold text-xs tracking-[0.2em] uppercase shadow-[0_20px_40px_rgba(200,137,30,0.15)] hover:shadow-brand-gold/30 transition-all text-center"
+              className="px-8 py-4 rounded-full bg-brand-gold text-brand-void font-bold text-[10px] tracking-[0.2em] uppercase shadow-2xl transition-all"
             >
-              Explore Portfolio
+              Explore Spirits
             </motion.button>
             <motion.button 
-              whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.05)" }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => onNavigate('invest')}
-              className="w-full sm:w-auto px-12 py-5 rounded-full border border-white/15 text-brand-cream font-bold text-xs tracking-[0.2em] uppercase transition-all backdrop-blur-md text-center"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => { 
+                const gola = PRODUCTS.find(p => p.line === "Innovation Line");
+                if (gola) onProductSelect(gola);
+              }}
+              className="px-8 py-4 rounded-full bg-white/5 border border-white/20 text-brand-cream font-bold text-[10px] tracking-[0.2em] uppercase transition-all backdrop-blur-md"
             >
-              Calculate Returns
+              Experience Gola
+            </motion.button>
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => onNavigate('invest')}
+              className="px-8 py-4 rounded-full border border-brand-gold/30 text-brand-gold font-bold text-[10px] tracking-[0.2em] uppercase transition-all backdrop-blur-md"
+            >
+              For Trade / Investors
             </motion.button>
           </motion.div>
         </motion.div>
+      </section>
 
+      {/* Category Creation Block */}
+      <section className="py-24 md:py-40 bg-brand-void relative z-10 border-y border-white/5">
+        <div className="max-w-6xl mx-auto px-6 text-center space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-brand-gold font-bold uppercase tracking-[0.5em] text-xs"
+          >
+            The Opportunity
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-5xl md:text-8xl font-serif font-bold text-white leading-tight"
+          >
+            $52B Market. <br />
+            <span className="italic text-brand-gold/60">Zero global Indian luxury spirits brand.</span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="text-xl md:text-3xl text-brand-cream/40 font-light max-w-4xl mx-auto leading-relaxed"
+          >
+            This is not a brand launch. <br />
+            <span className="text-brand-cream">This is a category creation.</span>
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Dual Engine Section */}
+      <section className="relative grid lg:grid-cols-2 min-h-[80vh] border-b border-white/5">
+        {/* Left: Madira Luxury */}
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1.5 }}
-          className="absolute bottom-12 md:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 text-[10px] text-brand-gold/40 font-bold uppercase tracking-[0.4em] pointer-events-none"
+          whileHover="hover"
+          className="relative flex flex-col justify-center p-12 md:p-24 overflow-hidden group border-r border-white/5"
         >
-          Scroll to discover
-          <div className="w-px h-16 md:h-24 bg-linear-to-b from-brand-gold/40 to-transparent relative overflow-hidden">
-            <motion.div 
-              animate={{ y: ["-100%", "100%"] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-              className="absolute top-0 left-0 w-full h-1/2 bg-linear-to-b from-transparent via-brand-gold to-transparent"
-            />
+          <div className="absolute inset-0 bg-brand-navy opacity-40 group-hover:opacity-60 transition-opacity duration-1000" />
+          <motion.div 
+            variants={{ hover: { scale: 1.05 } }}
+            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 z-0"
+          >
+            <img src="/bespoke/single_malt_cave.png" className="w-full h-full object-cover grayscale opacity-20" />
+          </motion.div>
+          
+          <div className="relative z-10 space-y-6">
+            <div className="text-brand-gold font-bold uppercase tracking-[0.4em] text-[10px]">Madira</div>
+            <h3 className="text-5xl md:text-7xl font-serif font-bold text-white">The Luxury <br /><span className="italic text-brand-gold/60">Engine</span></h3>
+            <div className="space-y-4 pt-8">
+              {['High Margin', 'Brand Building', 'Export Play'].map((item, i) => (
+                <div key={i} className="flex items-center gap-4 text-brand-cream/60 font-light tracking-wide">
+                  <div className="w-1 h-1 rounded-full bg-brand-gold" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Right: Madira Gola Scale */}
+        <motion.div 
+          whileHover="hover"
+          className="relative flex flex-col justify-center p-12 md:p-24 overflow-hidden group"
+        >
+          <div className="absolute inset-0 bg-brand-gold/5 group-hover:bg-brand-gold/10 transition-colors duration-500" />
+          <motion.div 
+            variants={{ hover: { x: [0, -10, 10, -10, 0], y: [0, 5, -5, 5, 0] } }}
+            transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+            className="absolute inset-0 z-0 pointer-events-none"
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200,137,30,0.1)_0%,transparent_70%)]" />
+          </motion.div>
+
+          <div className="relative z-10 space-y-6">
+            <div className="text-brand-gold font-bold uppercase tracking-[0.4em] text-[10px]">Madira Gola</div>
+            <h3 className="text-5xl md:text-7xl font-serif font-bold text-white">The Scale <br /><span className="italic text-brand-gold/60">Engine</span></h3>
+            <div className="space-y-4 pt-8">
+              {['High Velocity', 'Viral Format', 'Youth Adoption'].map((item, i) => (
+                <div key={i} className="flex items-center gap-4 text-brand-cream/60 font-light tracking-wide">
+                  <div className="w-1 h-1 rounded-full bg-brand-gold" />
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </section>
@@ -327,116 +416,106 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
         </div>
       </Section>
 
-      {/* Thesis Section */}
-      <Section id="thesis" label="The Opportunity" title="India's Craft Spirits Boom">
-        <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
-          <div className="space-y-8">
-            <p className="text-lg md:text-xl text-brand-cream/60 leading-relaxed font-light">
-              The Indian craft spirits market hit <span className="text-white font-medium">₹22,100 Crore</span> in 2024 and is growing at <span className="text-white font-medium">22% CAGR</span>. While Goa and the South have seen early success, the North remains wide open for a premium brand with authentic provenance.
-            </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {MARKET_STATS.map((stat, i) => (
-                <div key={i} className="p-6 md:p-8 rounded-3xl bg-brand-navy/30 border border-white/5 group hover:border-brand-gold/20 transition-colors">
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-brand-gold/40 mb-4">{stat.label}</div>
-                  <div className="text-2xl md:text-3xl font-serif font-bold text-white mb-1">{stat.value}</div>
-                  <div className="text-[10px] text-brand-cream/20">{stat.sub}</div>
-                </div>
-              ))}
+      {/* Proof Section: The Moat */}
+      <section className="py-24 md:py-40 bg-brand-navy/10 relative overflow-hidden border-b border-white/5">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-gold/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        
+        <div className="max-w-6xl mx-auto px-6 space-y-24">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <div className="section-label">Structural Proof</div>
+              <h2 className="text-5xl md:text-8xl font-serif font-bold text-white leading-tight">
+                Forced <br />
+                <span className="italic text-brand-gold/60">Inevitability.</span>
+              </h2>
+              <p className="text-xl md:text-2xl text-brand-cream/60 font-light leading-relaxed">
+                Most brands launch with hope. <br />
+                <span className="text-brand-cream">We launch with the shelf.</span>
+              </p>
             </div>
-          </div>
 
-          <div className="glass-card p-8 md:p-12 space-y-8">
-            <h3 className="text-2xl md:text-3xl font-serif font-bold text-white">The Unfair Advantage</h3>
-            <div className="space-y-6">
+            <div className="grid gap-6">
               {[
-                { icon: <Target className="text-brand-gold" />, title: "16 Owned Stores", desc: "Guaranteed Day 1 shelf placement in Gurgaon's premium retail." },
-                { icon: <ShieldCheck className="text-brand-gold" />, title: "20% Margin Uplift", desc: "Capturing the retailer margin that competitors lose to middlemen." },
-                { icon: <Droplets className="text-brand-gold" />, title: "Himalayan Provenance", desc: "Pure spring water from Sirmour, HP. A story Goa brands can't tell." }
-              ].map((item, i) => (
-                <div key={i} className="flex gap-4 md:gap-6">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-brand-gold/10 flex items-center justify-center shrink-0">
-                    {item.icon}
-                  </div>
-                  <div className="space-y-1">
-                    <div className="font-bold text-white tracking-tight text-sm md:text-base">{item.title}</div>
-                    <p className="text-xs md:text-sm text-brand-cream/40 leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Competition Sub-section */}
-        <div className="mt-24 space-y-12">
-          <div className="text-center space-y-6">
-            <div className="space-y-2">
-              <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold/60">Competitive Landscape</div>
-              <h3 className="text-3xl md:text-5xl font-serif font-bold text-white">The Structural Advantage</h3>
-            </div>
-            
-            {/* Category Selector */}
-            <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-              {Array.from(new Set(COMPETITION.map(c => c.category))).map(cat => (
-                <button
-                  key={cat}
-                  onClick={() => setCompCategory(cat)}
-                  className={cn(
-                    "px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all border",
-                    compCategory === cat 
-                      ? "bg-brand-gold text-brand-void border-brand-gold" 
-                      : "bg-white/5 text-brand-cream/40 border-white/10 hover:border-brand-gold/40"
-                  )}
+                { 
+                  title: "16 OWNED STORES", 
+                  value: "Guaranteed day-1 shelf", 
+                  sub: "18 months advantage vs local competitors.",
+                  icon: <Store className="text-brand-gold" size={24} /> 
+                },
+                { 
+                  title: "₹100 RTD DOMINANCE", 
+                  value: "The Premium Gap", 
+                  sub: "BuzzBalls proved the format; we own the luxury tier.",
+                  icon: <TrendingUp className="text-brand-gold" size={24} /> 
+                },
+                { 
+                  title: "22% CAGR BOOM", 
+                  value: "The Strategic Timing", 
+                  sub: "India is entering its golden age of premiumisation.",
+                  icon: <Target className="text-brand-gold" size={24} /> 
+                }
+              ].map((card, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.2 }}
+                  className="p-8 md:p-12 rounded-[3rem] bg-white/5 border border-white/10 hover:border-brand-gold/40 transition-all group"
                 >
-                  {cat}
-                </button>
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="w-12 h-12 rounded-2xl bg-brand-gold/10 flex items-center justify-center">
+                      {card.icon}
+                    </div>
+                    <div className="text-[10px] font-bold text-brand-gold uppercase tracking-[0.4em]">Proof 0{i+1}</div>
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-bold text-white tracking-tight">{card.title}</h3>
+                    <div className="text-lg text-brand-gold/80 font-serif italic">{card.value}</div>
+                    <p className="text-sm text-brand-cream/40 font-light">{card.sub}</p>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {COMPETITION.filter(c => c.category === compCategory).map((comp, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.1 }}
-                className={cn(
-                  "p-10 rounded-[2.5rem] border transition-all space-y-6 relative overflow-hidden",
-                  comp.highlight 
-                    ? "bg-brand-gold/10 border-brand-gold/40 shadow-2xl shadow-brand-gold/10" 
-                    : "bg-brand-navy/30 border-white/5"
-                )}
-              >
-                {comp.highlight && (
-                  <div className="absolute top-0 right-0 px-4 py-1 bg-brand-gold text-brand-void text-[8px] font-bold uppercase tracking-widest rounded-bl-xl">
-                    Our Edge
-                  </div>
-                )}
-                <div className="flex justify-between items-start">
-                  <div className="space-y-1">
-                    <div className="text-[10px] font-bold text-brand-gold uppercase tracking-widest">{comp.origin}</div>
-                    <div className="text-2xl font-serif font-bold text-white">{comp.name}</div>
-                  </div>
-                  {comp.highlight && <Shield className="text-brand-gold" size={24} />}
-                </div>
-                <div className="space-y-4">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-brand-cream/40">Price Point</span>
-                    <span className="text-white font-medium">{comp.price}</span>
-                  </div>
-                  <div className="h-px bg-white/5" />
-                  <div className="space-y-2">
-                    <div className="text-[10px] font-bold text-brand-gold/60 uppercase tracking-widest">Core Moat</div>
-                    <p className="text-sm text-brand-cream/60 leading-relaxed">{comp.moat}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+      {/* Competitive Comparison Table */}
+      <section className="py-24 md:py-32 bg-brand-void border-b border-white/5 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 space-y-16">
+          <div className="text-center space-y-4">
+            <div className="text-brand-gold font-bold uppercase tracking-[0.4em] text-[10px]">The Premium Gap</div>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white">Why Madira <span className="italic text-brand-gold/60">Wins</span></h2>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-brand-gold/20">
+                  <th className="py-6 px-4 text-brand-cream/40 text-[10px] font-bold uppercase tracking-widest">Feature</th>
+                  <th className="py-6 px-4 text-brand-cream/60 text-xl font-serif">BuzzBalls (Incumbent)</th>
+                  <th className="py-6 px-4 text-brand-gold text-xl font-serif">Madira (The Future)</th>
+                </tr>
+              </thead>
+              <tbody className="text-brand-cream/80">
+                {[
+                  { feature: "Price Point", incumbent: "₹100 (Mass)", madira: "₹350 (Premium)" },
+                  { feature: "Liquid Quality", incumbent: "Industrial / Synthetic", madira: "Himalayan Craft Spirit" },
+                  { feature: "Narrative", incumbent: "None / Functional", madira: "Civilisational / Luxury" },
+                  { feature: "Margin Structure", incumbent: "Thin (Scalp play)", madira: "High (Luxury play)" },
+                  { feature: "Retail Control", incumbent: "Merchant-led", madira: "Owned Ecosystem (16 Stores)" }
+                ].map((row, i) => (
+                  <tr key={i} className="border-b border-white/5 group hover:bg-white/[0.02] transition-colors">
+                    <td className="py-6 px-4 font-bold text-[10px] uppercase tracking-widest text-brand-gold/40">{row.feature}</td>
+                    <td className="py-6 px-4 text-sm font-light italic opacity-40">{row.incumbent}</td>
+                    <td className="py-6 px-4 text-lg font-medium text-brand-cream">{row.madira}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
-      </Section>
+      </section>
 
       {/* Strategic Framework Section */}
       <Section id="strategy" label="Strategic Framework" title="The Investment Case">
@@ -770,40 +849,55 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
       </Section>
 
       {/* Invest Section */}
-      <Section id="invest" label="The Ask" title="Join the Journey">
-        <div className="max-w-4xl mx-auto text-center space-y-12">
-          <div className="space-y-6">
-            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight">
-              Ready to build the future of Indian craft spirits?
-            </h2>
-            <p className="text-lg md:text-xl text-brand-cream/60 max-w-2xl mx-auto font-light leading-relaxed">
-              We are currently closing our Seed round. Join us in bringing Himalayan provenance to the world.
-            </p>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <button 
-              className="w-full sm:w-auto px-12 py-5 rounded-full bg-brand-gold text-brand-void font-bold text-sm tracking-[0.2em] uppercase hover:scale-105 transition-transform shadow-2xl shadow-brand-gold/20"
-              onClick={() => window.open('mailto:jai.sharma6696@gmail.com?subject=Investment Interest: Madira')}
-            >
-              Invest Now
-            </button>
-          </div>
-          
-          <div className="pt-12 grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-white/5">
-            {[
-              { label: "Target Raise", value: "₹75 Lakhs" },
-              { label: "Min. Ticket", value: "₹2.5 Lakhs" },
-              { label: "Round Status", value: "Closing Soon" }
-            ].map((item, i) => (
-              <div key={i} className="space-y-1">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-brand-gold/40">{item.label}</div>
-                <div className="text-xl font-serif font-bold text-white">{item.value}</div>
+      {/* Final Conversion Section */}
+      <section className="py-24 md:py-48 bg-brand-void relative overflow-hidden border-t border-white/5">
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 md:gap-24 items-center">
+            <div className="space-y-8">
+              <h2 className="text-5xl md:text-8xl font-serif font-bold text-white leading-tight">
+                This is the <br />
+                <span className="italic text-brand-gold/60">Moment.</span>
+              </h2>
+              <p className="text-xl md:text-2xl text-brand-cream/60 font-light leading-relaxed max-w-xl">
+                The timing window for Indian luxury spirits is open. <br />
+                <span className="text-brand-cream">Are you building it with us?</span>
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-6">
+              {/* For Consumers */}
+              <div className="glass-card p-10 space-y-8 group border-brand-gold/20 hover:border-brand-gold/60 transition-all">
+                <div className="space-y-2">
+                  <div className="text-[10px] font-bold text-brand-gold/40 uppercase tracking-widest">For Consumers</div>
+                  <h3 className="text-3xl font-serif font-bold text-white">Experience</h3>
+                </div>
+                <p className="text-sm text-brand-cream/40 font-light">Discover the collection and find your nearest Madira experience point.</p>
+                <button 
+                  onClick={() => onNavigate('products')}
+                  className="w-full py-4 rounded-full bg-white/5 border border-white/10 text-brand-cream font-bold text-[10px] tracking-[0.2em] uppercase hover:bg-white/10 transition-all"
+                >
+                  Explore Collection
+                </button>
               </div>
-            ))}
+
+              {/* For Partners */}
+              <div className="glass-card p-10 space-y-8 group border-brand-gold bg-brand-gold/5 hover:bg-brand-gold/10 transition-all">
+                <div className="space-y-2">
+                  <div className="text-[10px] font-bold text-brand-gold uppercase tracking-widest">For Partners</div>
+                  <h3 className="text-3xl font-serif font-bold text-white">Scale</h3>
+                </div>
+                <p className="text-sm text-brand-cream/60 font-medium">Access the Trade Deck and Investment Memorandum for Phase 1.</p>
+                <button 
+                  onClick={() => onNavigate('invest')}
+                  className="w-full py-4 rounded-full bg-brand-gold text-brand-void font-bold text-[10px] tracking-[0.2em] uppercase hover:scale-105 transition-all shadow-xl shadow-brand-gold/20"
+                >
+                  Request Access
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </Section>
+      </section>
 
 
     </div>
