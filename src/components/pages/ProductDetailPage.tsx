@@ -45,17 +45,22 @@ const PRODUCT_GALLERIES: Record<string, string[]> = {
   "whiskey-blended": [
     "/images/whiskey-blended.png",
     "https://images.unsplash.com/photo-1527281405128-4c24b10ca4fa?auto=format&fit=crop&q=80&w=1000", // 5Y Pour
-    "https://images.unsplash.com/photo-1590645738363-228032bb3fbd?auto=format&fit=crop&q=80&w=1000" // Cask detail
+    "https://images.unsplash.com/photo-1532634893-f43423f790fb?auto=format&fit=crop&q=80&w=1000" // Barrels
   ],
   "single-malt": [
     "/images/single-malt.png",
     "https://images.unsplash.com/photo-1527281405128-4c24b10ca4fa?auto=format&fit=crop&q=80&w=1000", // 7Y Pour
-    "https://images.unsplash.com/photo-1527281405128-4c24b10ca4fa?auto=format&fit=crop&q=80&w=1000" // Detail
+    "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1000" // Cask
   ],
   "madira-balls": [
     "/images/madira-balls.png",
-    "https://images.unsplash.com/photo-1536935338218-d41364c034bc?auto=format&fit=crop&q=80&w=1000", // Social context
-    "https://images.unsplash.com/photo-1620212323297-393963488814?auto=format&fit=crop&q=80&w=1000" // Angle 3
+    "https://images.unsplash.com/photo-1536935338218-d41364c034bc?auto=format&fit=crop&q=80&w=1000", // Social
+    "https://images.unsplash.com/photo-1620212323297-393963488814?auto=format&fit=crop&q=80&w=1000" // Innovative format
+  ],
+  "buzz-balls": [
+    "/images/buzz-balls.png",
+    "https://images.unsplash.com/photo-1536935338218-d41364c034bc?auto=format&fit=crop&q=80&w=1000", // Social
+    "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1000" // Mixology
   ]
 };
 

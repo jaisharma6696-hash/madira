@@ -2,7 +2,7 @@ import { Slide, Stat } from './types';
 
 export const BRAND_NAME = "MADIRA";
 
-export const BRAND_VIDEO_URL = "/brand-story.mp4"; // Placeholder: Replace with user's specific video URL
+export const BRAND_VIDEO_URL = "https://assets.mixkit.co/videos/preview/mixkit-dramatic-mountains-under-the-sunlight-1296-large.mp4";
 
 export const CORE_VALUES = [
   { title: "Radical Transparency", desc: "From Himalayan spring source to the final seal, every drop is accounted for." },

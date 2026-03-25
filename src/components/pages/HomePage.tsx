@@ -69,12 +69,12 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
         
         <div className="absolute inset-0 z-0 bg-black">
           <video 
-            src="/brand-story.mp4" 
+            src={BRAND_VIDEO_URL} 
             autoPlay 
             loop 
             muted={isMuted} 
             playsInline 
-            className="w-full h-full object-cover opacity-60 grayscale-[0.2] contrast-125"
+            className="w-full h-full object-cover opacity-50 grayscale-[0.1] contrast-110"
           />
           <div className="absolute inset-0 bg-brand-void/30 mix-blend-multiply" />
           <div className="absolute inset-0 bg-linear-to-b from-transparent via-brand-void/20 to-brand-void/60" />
