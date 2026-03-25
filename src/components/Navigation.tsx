@@ -43,9 +43,8 @@ export function Navigation({ currentPage, onNavigate }: { currentPage: string, o
         <button onClick={() => navTo('home')} className="text-lg md:text-xl font-black gold-gradient tracking-[0.3em] hover:scale-105 transition-transform uppercase">MADIRA</button>
         
         <div className="hidden md:flex items-center gap-8">
-          <button onClick={() => navTo('home', 'thesis')} className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-cream/60 hover:text-white transition-all hover:scale-105">Thesis</button>
-          <button onClick={() => navTo('pitchdeck')} className={cn("text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:scale-105", currentPage === 'pitchdeck' || currentPage === 'icmemo' ? "text-white" : "text-brand-cream/60 hover:text-white")}>Deck</button>
           <button onClick={() => navTo('invest')} className={cn("text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:scale-105", currentPage === 'invest' ? "text-brand-gold-light" : "text-brand-gold hover:text-brand-gold-light")}>Invest</button>
+          <button onClick={() => navTo('pitchdeck')} className={cn("text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:scale-105", currentPage === 'pitchdeck' || currentPage === 'icmemo' ? "text-white" : "text-brand-cream/60 hover:text-white")}>Deck</button>
         </div>
 
         <button className="md:hidden text-white ml-auto" onClick={() => setIsMobileOpen(true)}>
@@ -66,9 +65,8 @@ export function Navigation({ currentPage, onNavigate }: { currentPage: string, o
             </button>
             <button onClick={() => navTo('home')} className="text-3xl font-serif text-white uppercase tracking-[0.2em]">Story</button>
             <button onClick={() => navTo('products')} className="text-3xl font-serif text-white uppercase tracking-[0.2em]">Portfolio</button>
-            <button onClick={() => navTo('home', 'thesis')} className="text-3xl font-serif text-white uppercase tracking-[0.2em]">Thesis</button>
-            <button onClick={() => navTo('pitchdeck')} className="text-3xl font-serif text-white uppercase tracking-[0.2em]">Deck</button>
             <button onClick={() => navTo('invest')} className="text-3xl font-serif text-brand-gold uppercase tracking-[0.2em] mt-8">Invest</button>
+            <button onClick={() => navTo('pitchdeck')} className="text-3xl font-serif text-white uppercase tracking-[0.2em]">Deck</button>
           </motion.div>
         )}
       </AnimatePresence>

@@ -28,7 +28,9 @@ import {
   Loader2,
   Store,
   GlassWater,
-  Globe
+  Globe,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
 import { InvestmentCalculator } from '../InvestmentCalculator';
@@ -49,7 +51,7 @@ const Section = ({ id, title, label, children, className }: { id: string; title:
 export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: string) => void, onProductSelect?: (p: typeof PRODUCTS[0]) => void }) {
   const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
   const [compCategory, setCompCategory] = useState('Gin');
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 150]);
@@ -57,47 +59,6 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
 
   return (
     <div className="min-h-screen bg-brand-void">
-      {/* Video Modal */}
-      <AnimatePresence>
-        {isVideoOpen && (
-          <div 
-            className="fixed inset-0 z-[110] flex items-center justify-center p-4 md:p-12"
-            onClick={() => setIsVideoOpen(false)}
-          >
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-brand-void/95 backdrop-blur-xl"
-            />
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-6xl aspect-video bg-black rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-white/10"
-            >
-              <button 
-                onClick={() => setIsVideoOpen(false)}
-                className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all z-20 backdrop-blur-md border border-white/10"
-              >
-                <X size={24} />
-              </button>
-              
-              <video 
-                src="/brand-story.mp4" 
-                controls 
-                autoPlay 
-                playsInline
-                className="w-full h-full object-contain"
-              >
-                Your browser does not support the video tag.
-              </video>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
       {/* Product Modal */}
       <AnimatePresence>
         {selectedProduct && (
@@ -236,15 +197,31 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden pt-20">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-brand-gold/5 rounded-full blur-[120px]" />
-          <div className="absolute top-0 left-0 w-full h-full opacity-[0.03]" 
+        <div className="absolute inset-0 -z-10 bg-black">
+          <video 
+            src="/brand-story.mp4" 
+            autoPlay 
+            loop 
+            muted={isMuted} 
+            playsInline 
+            className="w-full h-full object-cover opacity-50 scale-105"
+          />
+          <div className="absolute inset-0 bg-linear-to-b from-brand-void/60 via-brand-void/30 to-brand-void" />
+          <div className="absolute inset-0 opacity-[0.03]" 
             style={{ 
               backgroundImage: `linear-gradient(var(--color-brand-gold) 1px, transparent 1px), linear-gradient(90deg, var(--color-brand-gold) 1px, transparent 1px)`,
               backgroundSize: '80px 80px'
             }} 
           />
         </div>
+
+        <button 
+          onClick={() => setIsMuted(!isMuted)}
+          className="absolute bottom-8 right-8 z-20 p-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-brand-gold/40 text-brand-cream/60 transition-all backdrop-blur-md hidden md:flex"
+        >
+          {isMuted ? <VolumeX size={20} /> : <Volume2 className="text-brand-gold" size={20} />}
+        </button>
+
 
         <motion.div 
           style={{ y: heroY, opacity: heroOpacity }}
@@ -301,18 +278,18 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => document.getElementById('thesis')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => onNavigate('products')}
               className="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-gold text-brand-void font-bold text-sm tracking-widest uppercase shadow-xl hover:shadow-brand-gold/40 transition-shadow text-center"
             >
-              Explore Thesis
+              Explore Portfolio
             </motion.button>
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => onNavigate('invest')}
               className="w-full sm:w-auto px-8 py-4 rounded-full border border-white/10 text-brand-cream font-bold text-sm tracking-widest uppercase hover:bg-white/5 transition-colors text-center"
             >
-              Investment Calculator
+              Calculate Returns
             </motion.button>
           </motion.div>
         </motion.div>
@@ -328,35 +305,6 @@ export function HomePage({ onNavigate, onProductSelect }: { onNavigate: (page: s
         </motion.div>
       </section>
 
-      {/* Brand Video Section */}
-      <section id="video" className="relative h-[70vh] md:h-screen w-full overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=2000" 
-            alt="Distillery" 
-            className="w-full h-full object-cover opacity-40 grayscale"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-linear-to-b from-brand-void via-transparent to-brand-void" />
-        </div>
-        
-        <div className="relative z-10 text-center space-y-8 px-6 max-w-4xl">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsVideoOpen(true)}
-              className="w-20 h-20 md:w-32 md:h-32 rounded-full bg-brand-gold/20 border border-brand-gold/40 flex items-center justify-center mx-auto cursor-pointer group hover:bg-brand-gold transition-all"
-            >
-            <Play className="text-brand-gold group-hover:text-brand-void fill-current" size={40} />
-          </motion.div>
-          <div className="space-y-4">
-            <h2 className="text-4xl md:text-7xl font-serif font-bold text-white tracking-tight">The Spirit of Madira</h2>
-            <p className="text-lg md:text-xl text-brand-cream/60 font-light max-w-2xl mx-auto">
-              A visual journey from the Himalayan peaks to the premium shelf. Watch our brand story.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Brand Story & Identity Section */}
       <Section id="brand" label="Brand Identity" title="The Soul of Madira" className="bg-brand-navy/10">

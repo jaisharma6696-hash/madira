@@ -5,8 +5,8 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 export function InvestmentCalculator() {
   const [investment, setInvestment] = useState<number>(500000); // 5 Lakhs default
-  const [preMoneyValuation, setPreMoneyValuation] = useState<number>(35000000); // 3.5 Cr default
-  const [nextRoundValuation, setNextRoundValuation] = useState<number>(150000000); // 15 Cr default for next round
+  // Hardcoded to strictly align with user's specific 3.5 Cr valuation strategy
+  const [preMoneyValuation] = useState<number>(35000000); // 3.5 Cr locked
   const [showFutureRound, setShowFutureRound] = useState<boolean>(false);
   const [activeScenario, setActiveScenario] = useState<'conservative' | 'bull' | null>(null);
   const [projectionYear, setProjectionYear] = useState<2 | 3>(3);
@@ -47,14 +47,14 @@ export function InvestmentCalculator() {
   const scenarios = {
     conservative: {
       title: `Conservative Exit (${currentProj.consMult}x Revenue)`,
-      why: "Standard multiple for profitable FMCG/Alco-bev brands in India. Assumes steady growth and 20% EBITDA margins.",
-      how: "Exit via acquisition by a larger domestic player (e.g., Radico Khaitan, United Spirits) or a PE-led secondary sale.",
+      why: "Standard M&A multiple for profitable FMCG/Alco-bev brands in India achieving scale without excessive burn. Assumes steady growth and positive unit economics via our owned retail moat.",
+      how: "Strategic acquisition by a domestic incumbent (e.g., Radico Khaitan, Allied Blenders) seeking to expand their premium craft portfolio cheaply.",
       valuation: formatCurrency(exitValue3x)
     },
     bull: {
       title: `Bull Case Exit (${currentProj.bullMult}x Revenue)`,
-      why: "Premium multiple reserved for high-growth 'Category Creators'. Assumes market leadership in the Himalayan provenance story.",
-      how: "IPO or acquisition by a global conglomerate (e.g., Diageo, Pernod Ricard) looking for a premium Indian craft portfolio.",
+      why: "Premium multiple reserved for high-growth 'Category Creators'. At Year 3, assuming ₹67.7Cr revenue, establishing the Himalayan brand moat commands severe valuation premiums.",
+      how: "Unicorn-track IPO or global conglomerate buyout (e.g., Diageo, Pernod Ricard) moving aggressively to capture India's premiumization wave.",
       valuation: formatCurrency(exitValue7x)
     }
   };
@@ -164,26 +164,14 @@ export function InvestmentCalculator() {
               </div>
             </div>
 
-            {/* Valuation Slider */}
+            {/* Valuation Lock-in Notice */}
             <div className="space-y-4">
               <div className="flex justify-between items-end">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-brand-gold/60">Pre-Money Valuation</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-brand-gold/60">Pre-Money Valuation (Locked)</label>
                 <span className="text-lg md:text-xl font-mono font-bold text-brand-gold-light">{formatCurrency(preMoneyValuation)}</span>
               </div>
-              <div className="relative py-4">
-                <input 
-                  type="range" 
-                  min="30000000" 
-                  max="40000000" 
-                  step="1000000"
-                  value={preMoneyValuation}
-                  onChange={(e) => setPreMoneyValuation(Number(e.target.value))}
-                  className="w-full h-2 bg-brand-gold/20 rounded-lg appearance-none cursor-pointer accent-brand-gold"
-                />
-              </div>
-              <div className="flex justify-between text-[8px] md:text-[10px] text-brand-cream/30 font-mono">
-                <span>₹3.0 CR</span>
-                <span>₹4.0 CR</span>
+              <div className="p-4 rounded-xl border border-brand-gold/20 bg-brand-gold/5 text-[10px] md:text-xs text-brand-cream/60 leading-relaxed font-light mt-2">
+                This seed round is strictly priced at ₹3.5 Crore Pre-Money. Unlike competing brands that burn millions over 18 months for distribution, Madira is completely de-risked via <span className="text-white font-bold">16 proprietary L-2 retail stores</span> on Day 1. You are buying in at floor value.
               </div>
             </div>
           </div>

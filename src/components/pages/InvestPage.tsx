@@ -6,6 +6,7 @@ import {
   CheckCircle2, PieChart, Layers, Globe, Clock
 } from 'lucide-react';
 import { MARKET_STATS, FINANCIALS, TRACTION, USE_OF_FUNDS, TEAM } from '../../constants';
+import { InvestmentCalculator } from '../InvestmentCalculator';
 
 const Section = ({ children, id, className = '' }: { children: React.ReactNode, id?: string, className?: string }) => (
   <section id={id} className={`py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto ${className}`}>
@@ -13,7 +14,7 @@ const Section = ({ children, id, className = '' }: { children: React.ReactNode, 
   </section>
 );
 
-const StatCard = ({ label, value, sub, icon }: { label: string, value: string, sub: string, icon: React.ReactNode }) => (
+const StatCard: React.FC<{ label: string, value: string, sub: string, icon: React.ReactNode }> = ({ label, value, sub, icon }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -59,18 +60,18 @@ export function InvestPage({ onNavigate }: { onNavigate: (page: string) => void 
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open('mailto:jai.sharma6696@gmail.com?subject=Investment Interest: Madira')}
+              onClick={() => onNavigate('pitchdeck')}
               className="px-10 py-5 rounded-full bg-brand-gold text-brand-void font-bold text-sm tracking-[0.2em] uppercase shadow-[0_0_40px_rgba(200,137,30,0.2)]"
             >
-              Schedule a Call
+              View Pitch Deck
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => onNavigate('pitchdeck')}
+              onClick={() => onNavigate('icmemo')}
               className="px-10 py-5 rounded-full border border-white/10 text-brand-cream font-bold text-sm tracking-[0.2em] uppercase hover:bg-white/5 transition-colors"
             >
-              View Pitch Deck
+              Evaluate IC Memo
             </motion.button>
           </div>
         </motion.div>
@@ -204,6 +205,22 @@ export function InvestPage({ onNavigate }: { onNavigate: (page: string) => void 
               </motion.div>
             ))}
           </div>
+        </div>
+      </Section>
+
+      {/* The Calculator */}
+      <Section id="calculator" className="border-t border-white/5">
+        <div className="space-y-16">
+          <div className="max-w-3xl space-y-4">
+            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-gold">Valuation Model</div>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight">
+              Investment <span className="italic text-brand-gold/60">Returns</span>
+            </h2>
+            <p className="text-lg text-brand-cream/50 leading-relaxed font-light">
+              We are raising at a strict ₹3.5 Crore Pre-Money valuation. Use the model below to project your unit economics and exit multiples.
+            </p>
+          </div>
+          <InvestmentCalculator />
         </div>
       </Section>
 
